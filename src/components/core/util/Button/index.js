@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export function Button({ type, label, to, className }) {
+export function Button({ type, label, to, onClick, className }) {
 	if (type === 'link') {
 		return (
 			<Link to={to}>
@@ -13,7 +13,7 @@ export function Button({ type, label, to, className }) {
 
 	if (type === 'button') {
 		return (
-			<button type="button" className={`transition ${className}`}>
+			<button type="button" className={`transition ${className}`} onClick={onClick}>
 				{label}
 			</button>
 		);
@@ -32,6 +32,7 @@ Button.propTypes = {
 	type: PropTypes.string,
 	label: PropTypes.string,
 	to: PropTypes.string,
+	onClick: PropTypes.func,
 	className: PropTypes.string,
 };
 
@@ -39,6 +40,7 @@ Button.defaultProps = {
 	type: 'submit',
 	label: 'Submit',
 	to: '',
+	onClick: () => {},
 	className: '',
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export function Text({ type, placeholder, id, name, value, onChange, onKeyDown, inputRef, className }) {
+export function Text({ type, placeholder, id, name, value, onChange, onBlur, className }) {
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
 	if (type === 'password') {
@@ -12,6 +12,9 @@ export function Text({ type, placeholder, id, name, value, onChange, onKeyDown, 
 					placeholder={placeholder}
 					id={id}
 					name={name}
+					value={value}
+					onChange={onChange}
+					onBlur={onBlur}
 					className={`rounded outline-none border-2 border-darkSubtle focus:border-white transition w-full p-1 text-white ${className}`}
 				/>
 				<div className="flex space-x-3 text-darkSubtle text-sm">
@@ -22,25 +25,15 @@ export function Text({ type, placeholder, id, name, value, onChange, onKeyDown, 
 		);
 	}
 
-	if (type === 'otp') {
-		return (
-			<input
-				type="number"
-				value={value === undefined || value === null ? '' : value}
-				onChange={onChange}
-				onKeyDown={onKeyDown}
-				ref={inputRef}
-				className={`rounded outline-none border-2 border-darkSubtle focus:border-white transition w-full p-1 text-white number-input-style ${className}`}
-			/>
-		);
-	}
-
 	return (
 		<input
 			type={type}
 			placeholder={placeholder}
 			id={id}
 			name={name}
+			value={value}
+			onChange={onChange}
+			onBlur={onBlur}
 			className={`rounded outline-none border-2 border-darkSubtle focus:border-white transition w-full p-1 text-white ${className}`}
 		/>
 	);
@@ -53,8 +46,7 @@ Text.propTypes = {
 	name: PropTypes.string,
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	onChange: PropTypes.func,
-	onKeyDown: PropTypes.func,
-	inputRef: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+	onBlur: PropTypes.func,
 	className: PropTypes.string,
 };
 
@@ -65,8 +57,7 @@ Text.defaultProps = {
 	name: '',
 	value: '',
 	onChange: () => {},
-	onKeyDown: () => {},
-	inputRef: {},
+	onBlur: () => {},
 	className: '',
 };
 

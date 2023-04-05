@@ -4,6 +4,7 @@ import { Home, PageNotFound } from '@page/index';
 import { Signin, Signup } from '@page/Auth';
 import { appRoutes } from '@helper/globalConstants';
 import { PrivateRoute } from '@config/AppRoutes/PrivateRoute';
+import { AuthRoute } from '@config/AppRoutes/AuthRoute';
 import { Header } from '@part/index';
 
 export function AppRoutes() {
@@ -11,11 +12,23 @@ export function AppRoutes() {
 		<>
 			<Header />
 			<Routes>
-				{/* Public Routes */}
-				<Route path={appRoutes.SIGNIN} element={<Signin />} />
-				<Route path={appRoutes.SIGNUP} element={<Signup />} />
-				<Route path={appRoutes.PAGE_NOT_FOUND} element={<PageNotFound />} />
-				<Route path="*" element={<PageNotFound />} />
+				{/* Auth Routes */}
+				<Route
+					path={appRoutes.SIGNIN}
+					element={
+						<AuthRoute>
+							<Signin />
+						</AuthRoute>
+					}
+				/>
+				<Route
+					path={appRoutes.SIGNUP}
+					element={
+						<AuthRoute>
+							<Signup />
+						</AuthRoute>
+					}
+				/>
 
 				{/* Private Routes */}
 				<Route
@@ -26,6 +39,10 @@ export function AppRoutes() {
 						</PrivateRoute>
 					}
 				/>
+
+				{/* Public Routes */}
+				<Route path={appRoutes.PAGE_NOT_FOUND} element={<PageNotFound />} />
+				<Route path="*" element={<PageNotFound />} />
 			</Routes>
 		</>
 	);

@@ -4,18 +4,18 @@ import { Navigate } from 'react-router-dom';
 import { appRoutes } from '@helper/globalConstants';
 import { useAuth } from '@context/Auth';
 
-export function PrivateRoute({ children }) {
+export function AuthRoute({ children }) {
 	// context
 	const { isUserLoggedIn } = useAuth();
 
-	if (!isUserLoggedIn) {
-		return <Navigate to={appRoutes.SIGNIN} />;
+	if (isUserLoggedIn) {
+		return <Navigate to={appRoutes.HOME} />;
 	}
 	return children;
 }
 
-PrivateRoute.propTypes = {
+AuthRoute.propTypes = {
 	children: PropTypes.node.isRequired,
 };
 
-export default PrivateRoute;
+export default AuthRoute;
